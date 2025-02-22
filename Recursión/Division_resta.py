@@ -1,10 +1,12 @@
-def division(a, b, contador=0):
+def division(a, b):
+    if b == 0:
+        return "Error: No se puede dividir entre 0"  
     if a < b:
-        return contador
-    else:
-        return division(a - b, b, contador + 1)
+        return 0 
+    return 1 + division(a - b, b)  
 
-if __name__ == "__main__":
-    dividendo = 20
-    divisor = 4
-    print(f"El cociente de {dividendo} dividido entre {divisor} es: {division(dividendo, divisor)}")
+
+dividendo = 20
+divisor = 4
+resultado = division(dividendo, divisor)
+print(f"{dividendo} dividido entre {divisor} es {resultado}")
