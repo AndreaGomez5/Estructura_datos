@@ -1,4 +1,4 @@
-numero= 6
+numero= 5
 resultado:int 
 
 def factorial(n: int) ->int:
