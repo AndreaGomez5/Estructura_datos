@@ -7,5 +7,5 @@ def multiplicacion(a, b):
         return a + multiplicacion(a, b - 1)
 
 if __name__ == "__main__":
-    print(multiplicacion(5, 3))  
-    print(multiplicacion(7, 4)) 
+    print(multiplicacion(16, 32))  
+    print(multiplicacion(9, 12)) 

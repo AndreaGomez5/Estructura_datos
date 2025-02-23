@@ -6,7 +6,7 @@ def division(a, b):
     return 1 + division(a - b, b)  
 
 
-dividendo = 15
-divisor = 8
+dividendo = 22
+divisor = 14
 resultado = division(dividendo, divisor)
 print(f"{dividendo} dividido entre {divisor} es {resultado}")

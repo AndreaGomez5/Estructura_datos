@@ -7,5 +7,5 @@ def fibonacci(n, a=0, b=1):
         return [a] + fibonacci(n - 1, b, a + b)
 
 if __name__ == "__main__":
-    n = 10
+    n = 15
     print(fibonacci(n))
