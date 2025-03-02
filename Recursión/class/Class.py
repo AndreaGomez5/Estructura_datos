@@ -1,6 +1,6 @@
 class Vehiculo:
     marca: str
-    combustible: str
+    combustible: int
     tipo_Vehiculo: str
 
     def __init__(self, marca: str, combustible: int, tipo_Vehiculo:str)-> None:
