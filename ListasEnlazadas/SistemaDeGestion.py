@@ -1,86 +1,82 @@
-class Animal:
-    def __init__(self, nombre, edad, tipo):
-        self.nombre = nombre
-        self.edad = edad
-        self.tipo = tipo
+from datetime import datetime
+
+class Tarea:
+    def __init__(self, descripcion, prioridad, fecha_vencimiento):
+        self.descripcion = descripcion
+        self.prioridad = prioridad
+        self.fecha_vencimiento = datetime.strptime(fecha_vencimiento, "%Y-%m-%d")
         self.siguiente = None
-
+    
     def __str__(self):
-        return f"{self.tipo}: {self.nombre}, {self.edad} años"
+        return f"[{self.prioridad}] {self.descripcion} - Vence: {self.fecha_vencimiento.strftime('%Y-%m-%d')}"
 
-class ListaEnlazada:
+class ListaTareas:
     def __init__(self):
         self.cabeza = None
-
-    def agregar_animal(self, nombre, edad, tipo):
-        nuevo_animal = Animal(nombre, edad, tipo)
+    
+    def agregar_tarea(self, descripcion, prioridad, fecha_vencimiento):
+        nueva_tarea = Tarea(descripcion, prioridad, fecha_vencimiento)
         
-        if not self.cabeza:
-            self.cabeza = nuevo_animal
-            print(f"Animal agregado: {nuevo_animal}")
+        if not self.cabeza or (nueva_tarea.prioridad < self.cabeza.prioridad or 
+                               (nueva_tarea.prioridad == self.cabeza.prioridad and nueva_tarea.fecha_vencimiento < self.cabeza.fecha_vencimiento)):
+            nueva_tarea.siguiente = self.cabeza
+            self.cabeza = nueva_tarea
             return
         
         actual = self.cabeza
-        while actual.siguiente:
-            if actual.nombre == nombre and actual.tipo == tipo:
-                print("El animal ya está registrado.")
-                return
+        while actual.siguiente and (actual.siguiente.prioridad < nueva_tarea.prioridad or 
+                                   (actual.siguiente.prioridad == nueva_tarea.prioridad and actual.siguiente.fecha_vencimiento < nueva_tarea.fecha_vencimiento)):
             actual = actual.siguiente
         
-        if actual.nombre == nombre and actual.tipo == tipo:
-            print("El animal ya está registrado.")
-            return
+        nueva_tarea.siguiente = actual.siguiente
+        actual.siguiente = nueva_tarea
+    
+    def eliminar_tarea(self, descripcion):
+        actual = self.cabeza
+        anterior = None
         
-        actual.siguiente = nuevo_animal
-        print(f"Animal agregado: {nuevo_animal}")
-
-    def mostrar_animales_iterativo(self):
+        while actual:
+            if actual.descripcion == descripcion:
+                if anterior:
+                    anterior.siguiente = actual.siguiente
+                else:
+                    self.cabeza = actual.siguiente
+                print(f"Tarea eliminada: {descripcion}")
+                return
+            anterior = actual
+            actual = actual.siguiente
+        print("Tarea no encontrada.")
+    
+    def mostrar_tareas(self):
         if not self.cabeza:
-            print("No hay animales registrados.")
+            print("No hay tareas registradas.")
             return
         
         actual = self.cabeza
-        print("Lista de animales (Iterativo):")
+        print("\nLista de Tareas:")
         while actual:
             print(actual)
             actual = actual.siguiente
-
-    def mostrar_animales_recursivo(self, nodo=None):
-        if nodo is None:
-            nodo = self.cabeza
-            if nodo is None:
-                print("No hay animales registrados.")
+    
+    def buscar_tarea(self, descripcion):
+        actual = self.cabeza
+        while actual:
+            if actual.descripcion == descripcion:
+                print("Tarea encontrada:", actual)
                 return
-            print("Lista de animales (Recursivo):")
-        
-        print(nodo)
-        if nodo.siguiente:
-            self.mostrar_animales_recursivo(nodo.siguiente)
+            actual = actual.siguiente
+        print("Tarea no encontrada.")
+    
+    def marcar_completada(self, descripcion):
+        self.eliminar_tarea(descripcion)
+        print(f"Tarea '{descripcion}' marcada como completada y eliminada de la lista.")
 
-    def menu(self):
-        while True:
-            print("\nMenú:")
-            print("1. Agregar un animal")
-            print("2. Mostrar animales (Iterativo)")
-            print("3. Mostrar animales (Recursivo)")
-            print("4. Salir")
-            
-            opcion = input("Seleccione una opción: ")
-            
-            if opcion == "1":
-                nombre = input("Nombre del animal: ")
-                edad = int(input("Edad del animal: "))
-                tipo = input("Tipo de animal: ")
-                self.agregar_animal(nombre, edad, tipo)
-            elif opcion == "2":
-                self.mostrar_animales_iterativo()
-            elif opcion == "3":
-                self.mostrar_animales_recursivo()
-            elif opcion == "4":
-                print("Saliendo...")
-                break
-            else:
-                print("Opción no válida, intente de nuevo.")
+tareas = ListaTareas()
+tareas.agregar_tarea("Terminar proyecto", 1, "2024-03-20")
+tareas.agregar_tarea("Comprar comida", 2, "2024-03-15")
+tareas.agregar_tarea("Hacer ejercicio", 3, "2024-03-18")
 
-zoo = ListaEnlazada()
-zoo.menu()
+tareas.mostrar_tareas()
+tareas.buscar_tarea("Comprar comida")
+tareas.marcar_completada("Comprar comida")
+tareas.mostrar_tareas()
