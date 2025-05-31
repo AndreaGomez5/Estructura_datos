@@ -1,6 +1,5 @@
 import random, time, hashlib
-from sklearn.tree import DecisionTreeClassifier
-
+from sklearn.tree import DecisionTreeClassifier  # paquete de machine learning
 class NodoServidor:
     def __init__(self, nombre): self.nombre, self.siguiente, self.hackeado = nombre, None, False
 
