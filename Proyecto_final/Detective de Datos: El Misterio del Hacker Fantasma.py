@@ -140,4 +140,4 @@ class DetectiveDigital:
         print(f"Gracias por jugar. Puntuación final: {self.puntuacion}")
 
 if __name__ == "__main__":
-    DetectiveDigital().jugar()
+    DetectiveDigital().jugar() 
