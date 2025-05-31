@@ -1,7 +1,8 @@
 import random, time, hashlib
 from sklearn.tree import DecisionTreeClassifier  # paquete de machine learning
-class NodoServidor:
-    def __init__(self, nombre): self.nombre, self.siguiente, self.hackeado = nombre, None, False
+
+class NodoServidor:  # representa   
+    def __init__(self, nombre): self.nombre, self.siguiente, self.hackeado = nombre, None, False # indicador
 
 class ColaEventos:
     def __init__(self): self.eventos = []
@@ -19,7 +20,7 @@ class ArbolEvidencia:
 class DetectiveDigital:
     def __init__(self):                                   
         self.servidores = self.crear_red()                # Lista enlazada de servidores A-E
-        self.eventos = ColaEventos()                      # Cola para eventos de red
+        self.eventos = ColaEventos()                      # Ataques o fallos 
         self.ruta_correcta = random.sample("ABCDE", 3)    # Ruta del hacker
         self.evidencia = self.generar_arbol_evidencia()   # Árbol de pistas
         self.vidas, self.puntuacion, self.tiempo_total = 3, 0, 120
@@ -57,7 +58,7 @@ class DetectiveDigital:
     def analizar_eventos(self):
         print("\n📡 Analizando eventos de red...")
         for _ in range(3):
-            t = random.randint(1,2)  # Tiempo de espera simulado
+            t = random.randint(1,2)  # Tiempo de espera 
             time.sleep(t)
             e = random.choice(["Ping inusual", "Conexión segura detectada", "Paquete dañado", 
                                "Error 404", "Conexión fallida", "Posible hacker"])
