@@ -59,7 +59,7 @@ class DetectiveDigital:
         print("\n📡 Analizando eventos de red...")
         for _ in range(3):
             t = random.randint(1,2)  # Tiempo de espera 
-            time.sleep(t)
+            time.sleep(t)            # Análisis
             e = random.choice(["Ping inusual", "Conexión segura detectada", "Paquete dañado", 
                                "Error 404", "Conexión fallida", "Posible hacker"])
             self.eventos.encolar(e)
@@ -85,7 +85,7 @@ class DetectiveDigital:
             print("❌ Fallo."); self.puntuacion -= 10
 
     def generar_contraseña(self):
-        return hashlib.sha256(str(random.randint(1000,9999)).encode()).hexdigest()[:6]
+        return hashlib.sha256(str(random.randint(1000,9999)).encode()).hexdigest()[:6] #byte hash
 
     def resolver_contraseña(self):
         print("\n🧩 Resuelve la contraseña")
@@ -96,7 +96,7 @@ class DetectiveDigital:
             print("❌ Incorrecta")
         print(f"❌ Era: {r}"); self.puntuacion -= 15; return False
 
-    def investigar(self):
+    def investigar(self):    # árbol de evidencia
         print("\n🕵️ Revisando evidencia:")
         self.evidencia.imprimir()
         if input("\n¿Seguir izquierda o derecha? (i/d): ").lower() == "d":
